@@ -7,14 +7,97 @@
         x:Class="AnypocApp.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
         Icon="/Assets/avalonia-logo.ico"
-        Title="AnypocApp">
+        Title="AnypocApp"
+        Width="400" Height="500">
 
     <Design.DataContext>
-        <!-- This only sets the DataContext for the previewer in an IDE,
-             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
         <vm:MainWindowViewModel/>
     </Design.DataContext>
 
-    <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+    <Grid Background="#F5F5F5">
+        <Border Background="White"
+                CornerRadius="8"
+                Padding="40"
+                MaxWidth="350"
+                MaxHeight="400"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                BoxShadow="0 2 10 2 #20000000">
+
+            <StackPanel Spacing="30">
+                <!-- Title -->
+                <TextBlock Text="Login"
+                          FontSize="32"
+                          FontWeight="Bold"
+                          HorizontalAlignment="Center"
+                          Margin="0,0,0,20"/>
+
+                <!-- Username Field -->
+                <StackPanel Spacing="5">
+                    <TextBlock Text="Username" FontSize="14" Foreground="#666"/>
+                    <TextBox Text="{Binding Username}"
+                            Watermark="Enter your username"
+                            Padding="12"
+                            FontSize="16"
+                            BorderThickness="1"
+                            BorderBrush="#CCCCCC"
+                            CornerRadius="4"/>
+                </StackPanel>
+
+                <!-- Password Field -->
+                <StackPanel Spacing="5">
+                    <TextBlock Text="Password" FontSize="14" Foreground="#666"/>
+                    <Grid MinWidth="270">
+                        <TextBox x:Name="PasswordTextBox"
+                                Text="{Binding Password, Mode=TwoWay}"
+                                Watermark="Enter your password"
+                                Padding="12,12,45,12"
+                                FontSize="16"
+                                BorderThickness="1"
+                                BorderBrush="#CCCCCC"
+                                CornerRadius="4"
+                                PasswordChar="•"
+                                HorizontalAlignment="Stretch"/>
+
+                        <Border Background="Transparent"
+                               Padding="8"
+                               HorizontalAlignment="Right"
+                               VerticalAlignment="Center"
+                               PointerPressed="EyeButton_PointerPressed"
+                               PointerReleased="EyeButton_PointerReleased"
+                               PointerCaptureLost="EyeButton_PointerCaptureLost"
+                               Cursor="Hand">
+                            <TextBlock Text="👁"
+                                      FontSize="20"
+                                      Foreground="#666"/>
+                        </Border>
+                    </Grid>
+                </StackPanel>
+
+                <!-- Login Button -->
+                <Button Content="Login"
+                       Command="{Binding LoginCommand}"
+                       HorizontalAlignment="Stretch"
+                       HorizontalContentAlignment="Center"
+                       FontSize="16"
+                       FontWeight="SemiBold"
+                       Padding="0,14"
+                       Background="#2196F3"
+                       Foreground="White"
+                       CornerRadius="4"
+                       Cursor="Hand"
+                       Margin="0,10,0,0">
+                    <Button.Styles>
+                        <Style Selector="Button:pointerover">
+                            <Setter Property="Background" Value="#1976D2"/>
+                        </Style>
+                        <Style Selector="Button:pressed">
+                            <Setter Property="Background" Value="#0D47A1"/>
+                        </Style>
+                    </Button.Styles>
+                </Button>
+            </StackPanel>
+        </Border>
+    </Grid>
 
 </Window>
