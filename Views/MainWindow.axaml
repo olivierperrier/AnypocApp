@@ -14,7 +14,8 @@
         <vm:MainWindowViewModel/>
     </Design.DataContext>
 
-    <Grid Background="#F5F5F5">
+    <Grid Background="#F5F5F5" PointerPressed="Background_PointerPressed">
+        <!-- Login Form -->
         <Border Background="White"
                 CornerRadius="8"
                 Padding="40"
@@ -35,13 +36,16 @@
                 <!-- Username Field -->
                 <StackPanel Spacing="5">
                     <TextBlock Text="Username" FontSize="14" Foreground="#666"/>
-                    <TextBox Text="{Binding Username}"
+                    <TextBox x:Name="UsernameTextBox"
+                            Text="{Binding Username}"
                             Watermark="Enter your username"
                             Padding="12"
                             FontSize="16"
                             BorderThickness="1"
                             BorderBrush="#CCCCCC"
-                            CornerRadius="4"/>
+                            CornerRadius="4"
+                            GotFocus="TextBox_GotFocus"
+                            LostFocus="TextBox_LostFocus"/>
                 </StackPanel>
 
                 <!-- Password Field -->
@@ -57,7 +61,9 @@
                                 BorderBrush="#CCCCCC"
                                 CornerRadius="4"
                                 PasswordChar="•"
-                                HorizontalAlignment="Stretch"/>
+                                HorizontalAlignment="Stretch"
+                                GotFocus="TextBox_GotFocus"
+                                LostFocus="TextBox_LostFocus"/>
 
                         <Border Background="Transparent"
                                Padding="8"
@@ -98,6 +104,122 @@
                 </Button>
             </StackPanel>
         </Border>
+
+        <!-- Virtual Keyboard -->
+        <Border x:Name="KeyboardPanel"
+                VerticalAlignment="Bottom"
+                Background="#1C1C1E"
+                Padding="4"
+                IsVisible="False"
+                HorizontalAlignment="Stretch">
+            <StackPanel Spacing="4" HorizontalAlignment="Stretch">
+                <!-- Row 1 - Numbers -->
+                <Grid ColumnDefinitions="*,*,*,*,*,*,*,*,*,*" HorizontalAlignment="Stretch">
+                    <Button Content="1" Classes="key" Grid.Column="0" HorizontalAlignment="Stretch"/>
+                    <Button Content="2" Classes="key" Grid.Column="1" HorizontalAlignment="Stretch"/>
+                    <Button Content="3" Classes="key" Grid.Column="2" HorizontalAlignment="Stretch"/>
+                    <Button Content="4" Classes="key" Grid.Column="3" HorizontalAlignment="Stretch"/>
+                    <Button Content="5" Classes="key" Grid.Column="4" HorizontalAlignment="Stretch"/>
+                    <Button Content="6" Classes="key" Grid.Column="5" HorizontalAlignment="Stretch"/>
+                    <Button Content="7" Classes="key" Grid.Column="6" HorizontalAlignment="Stretch"/>
+                    <Button Content="8" Classes="key" Grid.Column="7" HorizontalAlignment="Stretch"/>
+                    <Button Content="9" Classes="key" Grid.Column="8" HorizontalAlignment="Stretch"/>
+                    <Button Content="0" Classes="key" Grid.Column="9" HorizontalAlignment="Stretch"/>
+                </Grid>
+
+                <!-- Row 2 - QWERTYUIOP -->
+                <Grid ColumnDefinitions="*,*,*,*,*,*,*,*,*,*" HorizontalAlignment="Stretch">
+                    <Button Content="Q" Classes="key" Grid.Column="0" HorizontalAlignment="Stretch"/>
+                    <Button Content="W" Classes="key" Grid.Column="1" HorizontalAlignment="Stretch"/>
+                    <Button Content="E" Classes="key" Grid.Column="2" HorizontalAlignment="Stretch"/>
+                    <Button Content="R" Classes="key" Grid.Column="3" HorizontalAlignment="Stretch"/>
+                    <Button Content="T" Classes="key" Grid.Column="4" HorizontalAlignment="Stretch"/>
+                    <Button Content="Y" Classes="key" Grid.Column="5" HorizontalAlignment="Stretch"/>
+                    <Button Content="U" Classes="key" Grid.Column="6" HorizontalAlignment="Stretch"/>
+                    <Button Content="I" Classes="key" Grid.Column="7" HorizontalAlignment="Stretch"/>
+                    <Button Content="O" Classes="key" Grid.Column="8" HorizontalAlignment="Stretch"/>
+                    <Button Content="P" Classes="key" Grid.Column="9" HorizontalAlignment="Stretch"/>
+                </Grid>
+
+                <!-- Row 3 - ASDFGHJKL -->
+                <Grid ColumnDefinitions="0.5*,*,*,*,*,*,*,*,*,*,0.5*" HorizontalAlignment="Stretch">
+                    <Button Content="A" Classes="key" Grid.Column="1" HorizontalAlignment="Stretch"/>
+                    <Button Content="S" Classes="key" Grid.Column="2" HorizontalAlignment="Stretch"/>
+                    <Button Content="D" Classes="key" Grid.Column="3" HorizontalAlignment="Stretch"/>
+                    <Button Content="F" Classes="key" Grid.Column="4" HorizontalAlignment="Stretch"/>
+                    <Button Content="G" Classes="key" Grid.Column="5" HorizontalAlignment="Stretch"/>
+                    <Button Content="H" Classes="key" Grid.Column="6" HorizontalAlignment="Stretch"/>
+                    <Button Content="J" Classes="key" Grid.Column="7" HorizontalAlignment="Stretch"/>
+                    <Button Content="K" Classes="key" Grid.Column="8" HorizontalAlignment="Stretch"/>
+                    <Button Content="L" Classes="key" Grid.Column="9" HorizontalAlignment="Stretch"/>
+                </Grid>
+
+                <!-- Row 4 - ZXCVBNM with Shift and Backspace -->
+                <Grid ColumnDefinitions="1.5*,*,*,*,*,*,*,*,1.5*" HorizontalAlignment="Stretch">
+                    <Button Content="⇧" Classes="key special" Tag="shift" Grid.Column="0" HorizontalAlignment="Stretch"/>
+                    <Button Content="Z" Classes="key" Grid.Column="1" HorizontalAlignment="Stretch"/>
+                    <Button Content="X" Classes="key" Grid.Column="2" HorizontalAlignment="Stretch"/>
+                    <Button Content="C" Classes="key" Grid.Column="3" HorizontalAlignment="Stretch"/>
+                    <Button Content="V" Classes="key" Grid.Column="4" HorizontalAlignment="Stretch"/>
+                    <Button Content="B" Classes="key" Grid.Column="5" HorizontalAlignment="Stretch"/>
+                    <Button Content="N" Classes="key" Grid.Column="6" HorizontalAlignment="Stretch"/>
+                    <Button Content="M" Classes="key" Grid.Column="7" HorizontalAlignment="Stretch"/>
+                    <Button Content="⌫" Classes="key special" Tag="backspace" Grid.Column="8" HorizontalAlignment="Stretch"/>
+                </Grid>
+
+                <!-- Row 5 - Space bar and special keys -->
+                <Grid ColumnDefinitions="1.2*,1.2*,4*,1.2*,1.2*" HorizontalAlignment="Stretch">
+                    <Button Content="123" Classes="key special" Tag="numbers" Grid.Column="0" HorizontalAlignment="Stretch"/>
+                    <Button Content="," Classes="key" Grid.Column="1" HorizontalAlignment="Stretch"/>
+                    <Button Content="" Classes="key space" Tag="space" Grid.Column="2" HorizontalAlignment="Stretch"/>
+                    <Button Content="." Classes="key" Grid.Column="3" HorizontalAlignment="Stretch"/>
+                    <Button Content="✓" Classes="key done" Tag="done" Grid.Column="4" HorizontalAlignment="Stretch"/>
+                </Grid>
+            </StackPanel>
+        </Border>
     </Grid>
+
+    <Window.Styles>
+        <Style Selector="Button.key">
+            <Setter Property="Background" Value="#2C2C2E"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="FontWeight" Value="Regular"/>
+            <Setter Property="Margin" Value="2"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="MinHeight" Value="48"/>
+            <Setter Property="CornerRadius" Value="6"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+
+        <Style Selector="Button.key:pointerover">
+            <Setter Property="Background" Value="#3A3A3C"/>
+        </Style>
+
+        <Style Selector="Button.key:pressed">
+            <Setter Property="Background" Value="#48484A"/>
+        </Style>
+
+        <Style Selector="Button.key.special">
+            <Setter Property="Background" Value="#636366"/>
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
+
+        <Style Selector="Button.key.special:pointerover">
+            <Setter Property="Background" Value="#787880"/>
+        </Style>
+
+        <Style Selector="Button.key.done">
+            <Setter Property="Background" Value="#0A84FF"/>
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
+
+        <Style Selector="Button.key.done:pointerover">
+            <Setter Property="Background" Value="#409CFF"/>
+        </Style>
+    </Window.Styles>
 
 </Window>
