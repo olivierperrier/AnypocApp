@@ -3,6 +3,13 @@ using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.LogicalTree;
 using System.Linq;
+using System.Threading.Tasks;
+using Avalonia.Media;
+using Avalonia.Animation;
+using Avalonia;
+using Avalonia.Controls.Primitives;
+using Avalonia.Styling;
+using System;
 
 namespace AnypocApp.Views;
 
@@ -10,6 +17,7 @@ public partial class MainWindow : Window
 {
     private TextBox? _activeTextBox;
     private bool _isShiftActive = false;
+    private System.Timers.Timer? _popupTimer;
 
     public MainWindow()
     {
@@ -27,7 +35,76 @@ public partial class MainWindow : Window
         foreach (var button in keyButtons)
         {
             button.Click += KeyButton_Click;
+            button.AddHandler(Button.PointerPressedEvent, KeyButton_PointerPressed, handledEventsToo: true);
         }
+    }
+
+    private void KeyButton_PointerPressed(object? sender, PointerPressedEventArgs e)
+    {
+        if (sender is not Button button)
+            return;
+
+        ShowKeyPopup(button);
+    }
+
+    private void ShowKeyPopup(Button button)
+    {
+        // Get the button content
+        var content = button.Content?.ToString();
+        var tag = button.Tag?.ToString();
+
+        // Determine what to display
+        string displayText = content ?? "";
+        if (tag == "backspace")
+            displayText = "⌫";
+        else if (tag == "shift")
+            displayText = "⇧";
+        else if (tag == "space")
+            displayText = "Space";
+        else if (tag == "done")
+            displayText = "✓";
+
+        // Set the popup text
+        KeyPressText.Text = displayText;
+
+        // Calculate position above the button
+        var buttonBounds = button.Bounds;
+        var buttonPosition = button.TranslatePoint(new Point(0, 0), this);
+
+        if (buttonPosition.HasValue)
+        {
+            // Center the popup above the button
+            var popupWidth = 60.0;
+            var popupHeight = 70.0;
+
+            var left = buttonPosition.Value.X + (buttonBounds.Width / 2) - (popupWidth / 2);
+            var top = buttonPosition.Value.Y - popupHeight - 10;
+
+            // Ensure popup stays within window bounds
+            left = Math.Max(5, Math.Min(left, this.Bounds.Width - popupWidth - 5));
+            top = Math.Max(5, top);
+
+            Canvas.SetLeft(KeyPressPopup, left);
+            Canvas.SetTop(KeyPressPopup, top);
+        }
+
+        // Show popup
+        KeyPressPopup.IsVisible = true;
+
+        // Hide after 150ms
+        _popupTimer?.Stop();
+        _popupTimer = new System.Timers.Timer(150);
+        _popupTimer.Elapsed += (s, e) =>
+        {
+            Avalonia.Threading.Dispatcher.UIThread.Post(() =>
+            {
+                KeyPressPopup.IsVisible = false;
+                _popupTimer?.Dispose();
+                _popupTimer = null;
+            });
+        };
+        _popupTimer.AutoReset = false;
+        _popupTimer.Start();
     }
 
     private void TextBox_GotFocus(object? sender, RoutedEventArgs e)

@@ -15,6 +15,12 @@
     </Design.DataContext>
 
     <Grid Background="#F5F5F5" PointerPressed="Background_PointerPressed">
+        <Grid.Styles>
+            <Style Selector="Border#KeyPressPopup">
+                <Setter Property="ZIndex" Value="1000"/>
+            </Style>
+        </Grid.Styles>
+
         <!-- Login Form -->
         <Border Background="White"
                 CornerRadius="8"
@@ -104,6 +110,25 @@
                 </Button>
             </StackPanel>
         </Border>
+
+        <!-- Key Press Popup Overlay -->
+        <Canvas x:Name="PopupCanvas"
+                IsHitTestVisible="False"
+                ZIndex="1000">
+            <Border x:Name="KeyPressPopup"
+                    IsVisible="False"
+                    Background="#3A3A3C"
+                    CornerRadius="8"
+                    Padding="20,15"
+                    BoxShadow="0 4 20 4 #80000000">
+                <TextBlock x:Name="KeyPressText"
+                          FontSize="32"
+                          FontWeight="SemiBold"
+                          Foreground="White"
+                          HorizontalAlignment="Center"
+                          VerticalAlignment="Center"/>
+            </Border>
+        </Canvas>
 
         <!-- Virtual Keyboard -->
         <Border x:Name="KeyboardPanel"
