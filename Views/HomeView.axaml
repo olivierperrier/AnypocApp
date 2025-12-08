@@ -1,0 +1,100 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:AnypocApp.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="AnypocApp.Views.HomeView"
+             x:DataType="vm:HomeViewModel">
+
+    <Design.DataContext>
+        <vm:HomeViewModel/>
+    </Design.DataContext>
+
+    <!-- This is the content specific to the Home screen -->
+    <Grid Margin="24">
+        <StackPanel Spacing="24" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <!-- Welcome Message -->
+            <TextBlock Text="{Binding WelcomeMessage}"
+                      FontSize="32"
+                      FontWeight="Bold"
+                      HorizontalAlignment="Center"
+                      Foreground="#2196F3"/>
+
+            <!-- User Info -->
+            <TextBlock Text="{Binding UserInfo}"
+                      FontSize="16"
+                      HorizontalAlignment="Center"
+                      Foreground="#666666"/>
+
+            <!-- Example Cards -->
+            <StackPanel Spacing="16" MinWidth="400">
+                <!-- Card 1 -->
+                <Border Background="White"
+                       CornerRadius="8"
+                       Padding="20"
+                       BoxShadow="0 2 8 2 #20000000">
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="Patient Tests"
+                                  FontSize="18"
+                                  FontWeight="SemiBold"/>
+                        <TextBlock Text="View and manage patient test results"
+                                  FontSize="14"
+                                  Foreground="#666666"/>
+                        <Button Content="Open Tests"
+                               Background="#2196F3"
+                               Foreground="White"
+                               Padding="12,8"
+                               CornerRadius="4"
+                               HorizontalAlignment="Left"
+                               Cursor="Hand"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Card 2 -->
+                <Border Background="White"
+                       CornerRadius="8"
+                       Padding="20"
+                       BoxShadow="0 2 8 2 #20000000">
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="Device Settings"
+                                  FontSize="18"
+                                  FontWeight="SemiBold"/>
+                        <TextBlock Text="Configure device parameters and network"
+                                  FontSize="14"
+                                  Foreground="#666666"/>
+                        <Button Content="Open Settings"
+                               Background="#2196F3"
+                               Foreground="White"
+                               Padding="12,8"
+                               CornerRadius="4"
+                               HorizontalAlignment="Left"
+                               Cursor="Hand"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Card 3 -->
+                <Border Background="White"
+                       CornerRadius="8"
+                       Padding="20"
+                       BoxShadow="0 2 8 2 #20000000">
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="System Status"
+                                  FontSize="18"
+                                  FontWeight="SemiBold"/>
+                        <TextBlock Text="View system diagnostics and logs"
+                                  FontSize="14"
+                                  Foreground="#666666"/>
+                        <Button Content="View Status"
+                               Background="#2196F3"
+                               Foreground="White"
+                               Padding="12,8"
+                               CornerRadius="4"
+                               HorizontalAlignment="Left"
+                               Cursor="Hand"/>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</UserControl>

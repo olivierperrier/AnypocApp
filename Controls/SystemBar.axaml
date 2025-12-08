@@ -1,0 +1,70 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="using:AnypocApp.Controls"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="40"
+             x:Class="AnypocApp.Controls.SystemBar"
+             x:DataType="controls:SystemBar"
+             x:CompileBindings="False">
+
+    <Border Background="#1C1C1E" Height="40">
+        <Grid ColumnDefinitions="*,Auto" Margin="12,0">
+            <!-- Left side - Time/Date -->
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                <TextBlock x:Name="TimeText"
+                          Text="12:00"
+                          Foreground="White"
+                          FontSize="14"
+                          FontWeight="SemiBold"
+                          Margin="0,0,8,0"/>
+                <TextBlock x:Name="DateText"
+                          Text="Mon, Dec 8"
+                          Foreground="#B0B0B0"
+                          FontSize="14"/>
+            </StackPanel>
+
+            <!-- Right side - Network Status -->
+            <StackPanel Orientation="Horizontal"
+                       Grid.Column="1"
+                       Spacing="16"
+                       VerticalAlignment="Center">
+                <!-- WiFi Indicator -->
+                <StackPanel Orientation="Horizontal" Spacing="6"
+                           IsVisible="{Binding IsWifiConnected, RelativeSource={RelativeSource AncestorType=UserControl}}">
+                    <Path x:Name="WifiIcon"
+                          Fill="#4CAF50"
+                          Data="M12.01 21.49L23.64 7c-.45-.34-4.93-4-11.64-4C5.28 3 .81 6.66.36 7l11.63 14.49.01.01.01-.01zm-1.07-1.43L.84 8.83c.4-.31 3.74-2.83 9.17-2.83 5.42 0 8.76 2.5 9.17 2.82L8.94 20.06z"
+                          Width="20" Height="20"/>
+                    <TextBlock Text="{Binding WifiSignalStrength, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                              Foreground="White"
+                              FontSize="12"/>
+                </StackPanel>
+
+                <!-- Ethernet Indicator -->
+                <StackPanel Orientation="Horizontal" Spacing="6"
+                           IsVisible="{Binding IsEthernetConnected, RelativeSource={RelativeSource AncestorType=UserControl}}">
+                    <Border Width="20" Height="20"
+                           Background="#4CAF50"
+                           CornerRadius="2">
+                        <TextBlock Text="E"
+                                  Foreground="White"
+                                  FontSize="12"
+                                  FontWeight="Bold"
+                                  HorizontalAlignment="Center"
+                                  VerticalAlignment="Center"/>
+                    </Border>
+                    <TextBlock Text="LAN"
+                              Foreground="White"
+                              FontSize="12"/>
+                </StackPanel>
+
+                <!-- Battery/Status (optional) -->
+                <TextBlock Text="⚡ 85%"
+                          Foreground="White"
+                          FontSize="12"
+                          IsVisible="False"/>
+            </StackPanel>
+        </Grid>
+    </Border>
+</UserControl>

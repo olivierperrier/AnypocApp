@@ -1,0 +1,100 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="260"
+             x:Class="AnypocApp.Components.VirtualKeyboard">
+
+    <Grid ClipToBounds="False">
+        <!-- Keyboard -->
+        <Border Background="#1C1C1E" Padding="4" ClipToBounds="False">
+            <StackPanel x:Name="KeyboardContainer" Spacing="4"/>
+        </Border>
+
+        <!-- Key Press Popup Overlay -->
+        <Canvas x:Name="PopupCanvas"
+                IsHitTestVisible="False"
+                ZIndex="1000"
+                ClipToBounds="False">
+            <Border x:Name="KeyPressPopup"
+                    IsVisible="False"
+                    Background="#3A3A3C"
+                    CornerRadius="8"
+                    Padding="20,15"
+                    BoxShadow="0 4 20 4 #80000000">
+                <TextBlock x:Name="KeyPressText"
+                          FontSize="32"
+                          FontWeight="SemiBold"
+                          Foreground="White"
+                          HorizontalAlignment="Center"
+                          VerticalAlignment="Center"/>
+            </Border>
+        </Canvas>
+    </Grid>
+
+    <UserControl.Styles>
+        <Style Selector="Button.key">
+            <Setter Property="Background" Value="#2C2C2E"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="FontWeight" Value="Regular"/>
+            <Setter Property="Margin" Value="2"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="MinHeight" Value="48"/>
+            <Setter Property="CornerRadius" Value="6"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="{TemplateBinding CornerRadius}"
+                            Padding="{TemplateBinding Padding}">
+                        <ContentPresenter Content="{TemplateBinding Content}"
+                                        HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                        VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                        TextBlock.Foreground="{TemplateBinding Foreground}"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter>
+        </Style>
+
+        <Style Selector="Button.key:pressed">
+            <Setter Property="Background" Value="#48484A"/>
+        </Style>
+
+        <Style Selector="Button.key.special">
+            <Setter Property="Background" Value="#636366"/>
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
+
+        <Style Selector="Button.key.special:pressed">
+            <Setter Property="Background" Value="#787880"/>
+        </Style>
+
+        <Style Selector="Button.key.shift-active">
+            <Setter Property="Background" Value="#0A84FF"/>
+        </Style>
+
+        <Style Selector="Button.key.done">
+            <Setter Property="Background" Value="#0A84FF"/>
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
+
+        <Style Selector="Button.key.done:pressed">
+            <Setter Property="Background" Value="#409CFF"/>
+        </Style>
+
+        <Style Selector="Button.key.space">
+            <Setter Property="Background" Value="#2C2C2E"/>
+        </Style>
+
+        <Style Selector="Button.key.empty">
+            <Setter Property="Opacity" Value="0"/>
+            <Setter Property="IsHitTestVisible" Value="False"/>
+        </Style>
+    </UserControl.Styles>
+</UserControl>

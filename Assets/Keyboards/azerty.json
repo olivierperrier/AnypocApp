@@ -1,0 +1,71 @@
+{
+  "name": "AZERTY",
+  "languageCode": "fr-FR",
+  "rows": [
+    {
+      "keys": [
+        { "display": "1", "value": "1", "shiftDisplay": "&", "shiftValue": "&" },
+        { "display": "2", "value": "2", "shiftDisplay": "é", "shiftValue": "é" },
+        { "display": "3", "value": "3", "shiftDisplay": "\"", "shiftValue": "\"" },
+        { "display": "4", "value": "4", "shiftDisplay": "'", "shiftValue": "'" },
+        { "display": "5", "value": "5", "shiftDisplay": "(", "shiftValue": "(" },
+        { "display": "6", "value": "6", "shiftDisplay": "-", "shiftValue": "-" },
+        { "display": "7", "value": "7", "shiftDisplay": "è", "shiftValue": "è" },
+        { "display": "8", "value": "8", "shiftDisplay": "_", "shiftValue": "_" },
+        { "display": "9", "value": "9", "shiftDisplay": "ç", "shiftValue": "ç" },
+        { "display": "0", "value": "0", "shiftDisplay": "à", "shiftValue": "à" }
+      ]
+    },
+    {
+      "keys": [
+        { "display": "A", "value": "a", "shiftValue": "A" },
+        { "display": "Z", "value": "z", "shiftValue": "Z" },
+        { "display": "E", "value": "e", "shiftValue": "E" },
+        { "display": "R", "value": "r", "shiftValue": "R" },
+        { "display": "T", "value": "t", "shiftValue": "T" },
+        { "display": "Y", "value": "y", "shiftValue": "Y" },
+        { "display": "U", "value": "u", "shiftValue": "U" },
+        { "display": "I", "value": "i", "shiftValue": "I" },
+        { "display": "O", "value": "o", "shiftValue": "O" },
+        { "display": "P", "value": "p", "shiftValue": "P" }
+      ]
+    },
+    {
+      "keys": [
+        { "display": "", "value": "", "type": "empty", "width": 0.5 },
+        { "display": "Q", "value": "q", "shiftValue": "Q" },
+        { "display": "S", "value": "s", "shiftValue": "S" },
+        { "display": "D", "value": "d", "shiftValue": "D" },
+        { "display": "F", "value": "f", "shiftValue": "F" },
+        { "display": "G", "value": "g", "shiftValue": "G" },
+        { "display": "H", "value": "h", "shiftValue": "H" },
+        { "display": "J", "value": "j", "shiftValue": "J" },
+        { "display": "K", "value": "k", "shiftValue": "K" },
+        { "display": "L", "value": "l", "shiftValue": "L" },
+        { "display": "", "value": "", "type": "empty", "width": 0.5 }
+      ]
+    },
+    {
+      "keys": [
+        { "display": "⇧", "value": "shift", "type": "shift", "width": 1.5 },
+        { "display": "W", "value": "w", "shiftValue": "W" },
+        { "display": "X", "value": "x", "shiftValue": "X" },
+        { "display": "C", "value": "c", "shiftValue": "C" },
+        { "display": "V", "value": "v", "shiftValue": "V" },
+        { "display": "B", "value": "b", "shiftValue": "B" },
+        { "display": "N", "value": "n", "shiftValue": "N" },
+        { "display": "M", "value": "m", "shiftValue": "M" },
+        { "display": "⌫", "value": "backspace", "type": "backspace", "width": 1.5 }
+      ]
+    },
+    {
+      "keys": [
+        { "display": "123", "value": "numbers", "type": "special", "width": 1.2 },
+        { "display": ",", "value": "," },
+        { "display": " ", "value": " ", "type": "space", "width": 4.6 },
+        { "display": ".", "value": "." },
+        { "display": "✓", "value": "done", "type": "done", "width": 1.2 }
+      ]
+    }
+  ]
+}

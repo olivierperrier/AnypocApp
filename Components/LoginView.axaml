@@ -1,0 +1,115 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:AnypocApp.ViewModels"
+             xmlns:components="using:AnypocApp.Components"
+             mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="500"
+             x:Class="AnypocApp.Components.LoginView"
+             x:DataType="vm:MainWindowViewModel">
+
+    <Grid Background="#F5F5F5" PointerPressed="Background_PointerPressed">
+        <Grid.Styles>
+            <Style Selector="Border#KeyPressPopup">
+                <Setter Property="ZIndex" Value="1000"/>
+            </Style>
+        </Grid.Styles>
+
+        <!-- Login Form -->
+        <Border Background="White"
+                CornerRadius="8"
+                Padding="40"
+                MaxWidth="350"
+                MaxHeight="400"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                BoxShadow="0 2 10 2 #20000000">
+
+            <StackPanel Spacing="30">
+                <!-- Title -->
+                <TextBlock Text="Login"
+                          FontSize="32"
+                          FontWeight="Bold"
+                          HorizontalAlignment="Center"
+                          Margin="0,0,0,20"/>
+
+                <!-- Username Field -->
+                <StackPanel Spacing="5">
+                    <TextBlock Text="Username" FontSize="14" Foreground="#666"/>
+                    <TextBox x:Name="UsernameTextBox"
+                            Text="{Binding Username}"
+                            Watermark="Enter your username"
+                            Padding="12"
+                            FontSize="16"
+                            BorderThickness="1"
+                            BorderBrush="#CCCCCC"
+                            CornerRadius="4"
+                            GotFocus="TextBox_GotFocus"
+                            LostFocus="TextBox_LostFocus"/>
+                </StackPanel>
+
+                <!-- Password Field -->
+                <StackPanel Spacing="5">
+                    <TextBlock Text="Password" FontSize="14" Foreground="#666"/>
+                    <Grid MinWidth="270">
+                        <TextBox x:Name="PasswordTextBox"
+                                Text="{Binding Password, Mode=TwoWay}"
+                                Watermark="Enter your password"
+                                Padding="12,12,45,12"
+                                FontSize="16"
+                                BorderThickness="1"
+                                BorderBrush="#CCCCCC"
+                                CornerRadius="4"
+                                PasswordChar="•"
+                                HorizontalAlignment="Stretch"
+                                GotFocus="TextBox_GotFocus"
+                                LostFocus="TextBox_LostFocus"/>
+
+                        <Border Background="Transparent"
+                               Padding="8"
+                               HorizontalAlignment="Right"
+                               VerticalAlignment="Center"
+                               PointerPressed="EyeButton_PointerPressed"
+                               PointerReleased="EyeButton_PointerReleased"
+                               PointerCaptureLost="EyeButton_PointerCaptureLost"
+                               Cursor="Hand">
+                            <TextBlock Text="👁"
+                                      FontSize="20"
+                                      Foreground="#666"/>
+                        </Border>
+                    </Grid>
+                </StackPanel>
+
+                <!-- Login Button -->
+                <Button Content="Login"
+                       Command="{Binding LoginCommand}"
+                       HorizontalAlignment="Stretch"
+                       HorizontalContentAlignment="Center"
+                       FontSize="16"
+                       FontWeight="SemiBold"
+                       Padding="0,14"
+                       Background="#2196F3"
+                       Foreground="White"
+                       CornerRadius="4"
+                       Cursor="Hand"
+                       Margin="0,10,0,0">
+                    <Button.Styles>
+                        <Style Selector="Button:pointerover">
+                            <Setter Property="Background" Value="#1976D2"/>
+                        </Style>
+                        <Style Selector="Button:pressed">
+                            <Setter Property="Background" Value="#0D47A1"/>
+                        </Style>
+                    </Button.Styles>
+                </Button>
+            </StackPanel>
+        </Border>
+
+        <!-- Virtual Keyboard -->
+        <components:VirtualKeyboard x:Name="Keyboard"
+                                   VerticalAlignment="Bottom"
+                                   IsVisible="False"
+                                   LanguageCode="en-US"
+                                   ClipToBounds="False"/>
+    </Grid>
+</UserControl>

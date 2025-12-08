@@ -1,0 +1,37 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="using:AnypocApp.Controls"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600"
+             x:Class="AnypocApp.Controls.AppLayout"
+             x:DataType="controls:AppLayout"
+             x:CompileBindings="False">
+
+    <Grid RowDefinitions="Auto,Auto,*,Auto">
+        <!-- System Bar (top status bar) -->
+        <controls:SystemBar Grid.Row="0"
+                           IsWifiConnected="{Binding IsWifiConnected, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                           IsEthernetConnected="{Binding IsEthernetConnected, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                           WifiSignalStrength="{Binding WifiSignalStrength, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
+
+        <!-- Top Bar (navigation bar) -->
+        <controls:TopBar Grid.Row="1"
+                        x:Name="TopBar"
+                        Title="{Binding PageTitle, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
+
+        <!-- Main Content Area -->
+        <Border Grid.Row="2" Background="White">
+            <ContentControl x:Name="ContentArea"
+                          Content="{Binding PageContent, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                          HorizontalContentAlignment="Stretch"
+                          VerticalContentAlignment="Stretch"/>
+        </Border>
+
+        <!-- Bottom Bar (info bar) -->
+        <controls:BottomBar Grid.Row="3"
+                           LeftInfo="{Binding BottomLeftInfo, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                           CenterInfo="{Binding BottomCenterInfo, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                           RightInfo="{Binding BottomRightInfo, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
+    </Grid>
+</UserControl>

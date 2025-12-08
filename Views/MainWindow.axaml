@@ -1,9 +1,11 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="using:AnypocApp.ViewModels"
+        xmlns:controls="using:AnypocApp.Controls"
+        xmlns:components="using:AnypocApp.Components"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="500"
         x:Class="AnypocApp.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
         Icon="/Assets/avalonia-logo.ico"
@@ -14,237 +16,19 @@
         <vm:MainWindowViewModel/>
     </Design.DataContext>
 
-    <Grid Background="#F5F5F5" PointerPressed="Background_PointerPressed">
-        <Grid.Styles>
-            <Style Selector="Border#KeyPressPopup">
-                <Setter Property="ZIndex" Value="1000"/>
-            </Style>
-        </Grid.Styles>
+    <Grid>
+        <!-- Login Screen -->
+        <components:LoginView IsVisible="{Binding !IsLoggedIn}"/>
 
-        <!-- Login Form -->
-        <Border Background="White"
-                CornerRadius="8"
-                Padding="40"
-                MaxWidth="350"
-                MaxHeight="400"
-                VerticalAlignment="Center"
-                HorizontalAlignment="Center"
-                BoxShadow="0 2 10 2 #20000000">
-
-            <StackPanel Spacing="30">
-                <!-- Title -->
-                <TextBlock Text="Login"
-                          FontSize="32"
-                          FontWeight="Bold"
-                          HorizontalAlignment="Center"
-                          Margin="0,0,0,20"/>
-
-                <!-- Username Field -->
-                <StackPanel Spacing="5">
-                    <TextBlock Text="Username" FontSize="14" Foreground="#666"/>
-                    <TextBox x:Name="UsernameTextBox"
-                            Text="{Binding Username}"
-                            Watermark="Enter your username"
-                            Padding="12"
-                            FontSize="16"
-                            BorderThickness="1"
-                            BorderBrush="#CCCCCC"
-                            CornerRadius="4"
-                            GotFocus="TextBox_GotFocus"
-                            LostFocus="TextBox_LostFocus"/>
-                </StackPanel>
-
-                <!-- Password Field -->
-                <StackPanel Spacing="5">
-                    <TextBlock Text="Password" FontSize="14" Foreground="#666"/>
-                    <Grid MinWidth="270">
-                        <TextBox x:Name="PasswordTextBox"
-                                Text="{Binding Password, Mode=TwoWay}"
-                                Watermark="Enter your password"
-                                Padding="12,12,45,12"
-                                FontSize="16"
-                                BorderThickness="1"
-                                BorderBrush="#CCCCCC"
-                                CornerRadius="4"
-                                PasswordChar="•"
-                                HorizontalAlignment="Stretch"
-                                GotFocus="TextBox_GotFocus"
-                                LostFocus="TextBox_LostFocus"/>
-
-                        <Border Background="Transparent"
-                               Padding="8"
-                               HorizontalAlignment="Right"
-                               VerticalAlignment="Center"
-                               PointerPressed="EyeButton_PointerPressed"
-                               PointerReleased="EyeButton_PointerReleased"
-                               PointerCaptureLost="EyeButton_PointerCaptureLost"
-                               Cursor="Hand">
-                            <TextBlock Text="👁"
-                                      FontSize="20"
-                                      Foreground="#666"/>
-                        </Border>
-                    </Grid>
-                </StackPanel>
-
-                <!-- Login Button -->
-                <Button Content="Login"
-                       Command="{Binding LoginCommand}"
-                       HorizontalAlignment="Stretch"
-                       HorizontalContentAlignment="Center"
-                       FontSize="16"
-                       FontWeight="SemiBold"
-                       Padding="0,14"
-                       Background="#2196F3"
-                       Foreground="White"
-                       CornerRadius="4"
-                       Cursor="Hand"
-                       Margin="0,10,0,0">
-                    <Button.Styles>
-                        <Style Selector="Button:pointerover">
-                            <Setter Property="Background" Value="#1976D2"/>
-                        </Style>
-                        <Style Selector="Button:pressed">
-                            <Setter Property="Background" Value="#0D47A1"/>
-                        </Style>
-                    </Button.Styles>
-                </Button>
-            </StackPanel>
-        </Border>
-
-        <!-- Key Press Popup Overlay -->
-        <Canvas x:Name="PopupCanvas"
-                IsHitTestVisible="False"
-                ZIndex="1000">
-            <Border x:Name="KeyPressPopup"
-                    IsVisible="False"
-                    Background="#3A3A3C"
-                    CornerRadius="8"
-                    Padding="20,15"
-                    BoxShadow="0 4 20 4 #80000000">
-                <TextBlock x:Name="KeyPressText"
-                          FontSize="32"
-                          FontWeight="SemiBold"
-                          Foreground="White"
-                          HorizontalAlignment="Center"
-                          VerticalAlignment="Center"/>
-            </Border>
-        </Canvas>
-
-        <!-- Virtual Keyboard -->
-        <Border x:Name="KeyboardPanel"
-                VerticalAlignment="Bottom"
-                Background="#1C1C1E"
-                Padding="4"
-                IsVisible="False"
-                HorizontalAlignment="Stretch">
-            <StackPanel Spacing="4" HorizontalAlignment="Stretch">
-                <!-- Row 1 - Numbers -->
-                <Grid ColumnDefinitions="*,*,*,*,*,*,*,*,*,*" HorizontalAlignment="Stretch">
-                    <Button Content="1" Classes="key" Grid.Column="0" HorizontalAlignment="Stretch"/>
-                    <Button Content="2" Classes="key" Grid.Column="1" HorizontalAlignment="Stretch"/>
-                    <Button Content="3" Classes="key" Grid.Column="2" HorizontalAlignment="Stretch"/>
-                    <Button Content="4" Classes="key" Grid.Column="3" HorizontalAlignment="Stretch"/>
-                    <Button Content="5" Classes="key" Grid.Column="4" HorizontalAlignment="Stretch"/>
-                    <Button Content="6" Classes="key" Grid.Column="5" HorizontalAlignment="Stretch"/>
-                    <Button Content="7" Classes="key" Grid.Column="6" HorizontalAlignment="Stretch"/>
-                    <Button Content="8" Classes="key" Grid.Column="7" HorizontalAlignment="Stretch"/>
-                    <Button Content="9" Classes="key" Grid.Column="8" HorizontalAlignment="Stretch"/>
-                    <Button Content="0" Classes="key" Grid.Column="9" HorizontalAlignment="Stretch"/>
-                </Grid>
-
-                <!-- Row 2 - QWERTYUIOP -->
-                <Grid ColumnDefinitions="*,*,*,*,*,*,*,*,*,*" HorizontalAlignment="Stretch">
-                    <Button Content="Q" Classes="key" Grid.Column="0" HorizontalAlignment="Stretch"/>
-                    <Button Content="W" Classes="key" Grid.Column="1" HorizontalAlignment="Stretch"/>
-                    <Button Content="E" Classes="key" Grid.Column="2" HorizontalAlignment="Stretch"/>
-                    <Button Content="R" Classes="key" Grid.Column="3" HorizontalAlignment="Stretch"/>
-                    <Button Content="T" Classes="key" Grid.Column="4" HorizontalAlignment="Stretch"/>
-                    <Button Content="Y" Classes="key" Grid.Column="5" HorizontalAlignment="Stretch"/>
-                    <Button Content="U" Classes="key" Grid.Column="6" HorizontalAlignment="Stretch"/>
-                    <Button Content="I" Classes="key" Grid.Column="7" HorizontalAlignment="Stretch"/>
-                    <Button Content="O" Classes="key" Grid.Column="8" HorizontalAlignment="Stretch"/>
-                    <Button Content="P" Classes="key" Grid.Column="9" HorizontalAlignment="Stretch"/>
-                </Grid>
-
-                <!-- Row 3 - ASDFGHJKL -->
-                <Grid ColumnDefinitions="0.5*,*,*,*,*,*,*,*,*,*,0.5*" HorizontalAlignment="Stretch">
-                    <Button Content="A" Classes="key" Grid.Column="1" HorizontalAlignment="Stretch"/>
-                    <Button Content="S" Classes="key" Grid.Column="2" HorizontalAlignment="Stretch"/>
-                    <Button Content="D" Classes="key" Grid.Column="3" HorizontalAlignment="Stretch"/>
-                    <Button Content="F" Classes="key" Grid.Column="4" HorizontalAlignment="Stretch"/>
-                    <Button Content="G" Classes="key" Grid.Column="5" HorizontalAlignment="Stretch"/>
-                    <Button Content="H" Classes="key" Grid.Column="6" HorizontalAlignment="Stretch"/>
-                    <Button Content="J" Classes="key" Grid.Column="7" HorizontalAlignment="Stretch"/>
-                    <Button Content="K" Classes="key" Grid.Column="8" HorizontalAlignment="Stretch"/>
-                    <Button Content="L" Classes="key" Grid.Column="9" HorizontalAlignment="Stretch"/>
-                </Grid>
-
-                <!-- Row 4 - ZXCVBNM with Shift and Backspace -->
-                <Grid ColumnDefinitions="1.5*,*,*,*,*,*,*,*,1.5*" HorizontalAlignment="Stretch">
-                    <Button Content="⇧" Classes="key special" Tag="shift" Grid.Column="0" HorizontalAlignment="Stretch"/>
-                    <Button Content="Z" Classes="key" Grid.Column="1" HorizontalAlignment="Stretch"/>
-                    <Button Content="X" Classes="key" Grid.Column="2" HorizontalAlignment="Stretch"/>
-                    <Button Content="C" Classes="key" Grid.Column="3" HorizontalAlignment="Stretch"/>
-                    <Button Content="V" Classes="key" Grid.Column="4" HorizontalAlignment="Stretch"/>
-                    <Button Content="B" Classes="key" Grid.Column="5" HorizontalAlignment="Stretch"/>
-                    <Button Content="N" Classes="key" Grid.Column="6" HorizontalAlignment="Stretch"/>
-                    <Button Content="M" Classes="key" Grid.Column="7" HorizontalAlignment="Stretch"/>
-                    <Button Content="⌫" Classes="key special" Tag="backspace" Grid.Column="8" HorizontalAlignment="Stretch"/>
-                </Grid>
-
-                <!-- Row 5 - Space bar and special keys -->
-                <Grid ColumnDefinitions="1.2*,1.2*,4*,1.2*,1.2*" HorizontalAlignment="Stretch">
-                    <Button Content="123" Classes="key special" Tag="numbers" Grid.Column="0" HorizontalAlignment="Stretch"/>
-                    <Button Content="," Classes="key" Grid.Column="1" HorizontalAlignment="Stretch"/>
-                    <Button Content="" Classes="key space" Tag="space" Grid.Column="2" HorizontalAlignment="Stretch"/>
-                    <Button Content="." Classes="key" Grid.Column="3" HorizontalAlignment="Stretch"/>
-                    <Button Content="✓" Classes="key done" Tag="done" Grid.Column="4" HorizontalAlignment="Stretch"/>
-                </Grid>
-            </StackPanel>
-        </Border>
+        <!-- Main App Screen (after login) -->
+        <controls:AppLayout IsVisible="{Binding IsLoggedIn}"
+                           PageContent="{Binding CurrentView}"
+                           PageTitle="Home"
+                           IsWifiConnected="True"
+                           IsEthernetConnected="False"
+                           WifiSignalStrength="85%"
+                           BottomLeftInfo="Device: POC-001"
+                           BottomCenterInfo="Ready"
+                           BottomRightInfo="v1.0.0"/>
     </Grid>
-
-    <Window.Styles>
-        <Style Selector="Button.key">
-            <Setter Property="Background" Value="#2C2C2E"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="FontSize" Value="20"/>
-            <Setter Property="FontWeight" Value="Regular"/>
-            <Setter Property="Margin" Value="2"/>
-            <Setter Property="Padding" Value="0"/>
-            <Setter Property="MinHeight" Value="48"/>
-            <Setter Property="CornerRadius" Value="6"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="HorizontalContentAlignment" Value="Center"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
-            <Setter Property="Cursor" Value="Hand"/>
-        </Style>
-
-        <Style Selector="Button.key:pointerover">
-            <Setter Property="Background" Value="#3A3A3C"/>
-        </Style>
-
-        <Style Selector="Button.key:pressed">
-            <Setter Property="Background" Value="#48484A"/>
-        </Style>
-
-        <Style Selector="Button.key.special">
-            <Setter Property="Background" Value="#636366"/>
-            <Setter Property="Foreground" Value="White"/>
-        </Style>
-
-        <Style Selector="Button.key.special:pointerover">
-            <Setter Property="Background" Value="#787880"/>
-        </Style>
-
-        <Style Selector="Button.key.done">
-            <Setter Property="Background" Value="#0A84FF"/>
-            <Setter Property="Foreground" Value="White"/>
-        </Style>
-
-        <Style Selector="Button.key.done:pointerover">
-            <Setter Property="Background" Value="#409CFF"/>
-        </Style>
-    </Window.Styles>
-
 </Window>
