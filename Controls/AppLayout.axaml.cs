@@ -31,6 +31,9 @@ public partial class AppLayout : UserControl
     public static readonly StyledProperty<string> BottomRightInfoProperty =
         AvaloniaProperty.Register<AppLayout, string>(nameof(BottomRightInfo), defaultValue: "");
 
+    public static readonly StyledProperty<object?> TopBarCenterContentProperty =
+        AvaloniaProperty.Register<AppLayout, object?>(nameof(TopBarCenterContent), defaultValue: null);
+
     public object? PageContent
     {
         get => GetValue(PageContentProperty);
@@ -41,6 +44,12 @@ public partial class AppLayout : UserControl
     {
         get => GetValue(PageTitleProperty);
         set => SetValue(PageTitleProperty, value);
+    }
+
+    public object? TopBarCenterContent
+    {
+        get => GetValue(TopBarCenterContentProperty);
+        set => SetValue(TopBarCenterContentProperty, value);
     }
 
     public bool IsWifiConnected

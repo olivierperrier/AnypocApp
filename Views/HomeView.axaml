@@ -3,7 +3,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="using:AnypocApp.ViewModels"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:material="using:Material.Icons.Avalonia"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600"
              x:Class="AnypocApp.Views.HomeView"
              x:DataType="vm:HomeViewModel">
 
@@ -11,90 +12,82 @@
         <vm:HomeViewModel/>
     </Design.DataContext>
 
-    <!-- This is the content specific to the Home screen -->
-    <Grid Margin="24">
-        <StackPanel Spacing="24" VerticalAlignment="Center" HorizontalAlignment="Center">
-            <!-- Welcome Message -->
-            <TextBlock Text="{Binding WelcomeMessage}"
-                      FontSize="32"
-                      FontWeight="Bold"
-                      HorizontalAlignment="Center"
-                      Foreground="#2196F3"/>
+    <Grid RowDefinitions="*">
+        <!-- Medical Test Results ListBox -->
+        <ListBox Grid.Row="0"
+                 ItemsSource="{Binding TestResults}"
+                 Background="#FAFAFA"
+                 Padding="0"
+                 BorderThickness="0">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Border Background="White"
+                            Margin="12,8"
+                            Padding="16"
+                            CornerRadius="8"
+                            BoxShadow="0 1 3 0 #15000000">
+                        <Grid ColumnDefinitions="*,Auto">
+                            <!-- Test Information -->
+                            <StackPanel Grid.Column="0" Spacing="4">
+                                <TextBlock Text="{Binding Type}"
+                                          FontSize="16"
+                                          FontWeight="SemiBold"
+                                          Foreground="#212121"/>
+                                <StackPanel Orientation="Horizontal" Spacing="8">
+                                    <TextBlock Text="Patient:"
+                                              FontSize="13"
+                                              Foreground="#757575"/>
+                                    <TextBlock Text="{Binding PatientId}"
+                                              FontSize="13"
+                                              FontWeight="Medium"
+                                              Foreground="#2196F3"/>
+                                </StackPanel>
+                            </StackPanel>
 
-            <!-- User Info -->
-            <TextBlock Text="{Binding UserInfo}"
-                      FontSize="16"
-                      HorizontalAlignment="Center"
-                      Foreground="#666666"/>
+                            <!-- Test Result Value -->
+                            <StackPanel Grid.Column="1"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Right">
+                                <StackPanel Orientation="Horizontal" Spacing="4">
+                                    <TextBlock Text="{Binding Value}"
+                                              FontSize="20"
+                                              FontWeight="Bold"
+                                              Foreground="#4CAF50"/>
+                                    <TextBlock Text="{Binding Unit}"
+                                              FontSize="14"
+                                              Foreground="#757575"
+                                              VerticalAlignment="Bottom"
+                                              Margin="0,0,0,2"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
 
-            <!-- Example Cards -->
-            <StackPanel Spacing="16" MinWidth="400">
-                <!-- Card 1 -->
-                <Border Background="White"
-                       CornerRadius="8"
-                       Padding="20"
-                       BoxShadow="0 2 8 2 #20000000">
-                    <StackPanel Spacing="8">
-                        <TextBlock Text="Patient Tests"
-                                  FontSize="18"
-                                  FontWeight="SemiBold"/>
-                        <TextBlock Text="View and manage patient test results"
-                                  FontSize="14"
-                                  Foreground="#666666"/>
-                        <Button Content="Open Tests"
-                               Background="#2196F3"
-                               Foreground="White"
-                               Padding="12,8"
-                               CornerRadius="4"
-                               HorizontalAlignment="Left"
-                               Cursor="Hand"/>
-                    </StackPanel>
-                </Border>
-
-                <!-- Card 2 -->
-                <Border Background="White"
-                       CornerRadius="8"
-                       Padding="20"
-                       BoxShadow="0 2 8 2 #20000000">
-                    <StackPanel Spacing="8">
-                        <TextBlock Text="Device Settings"
-                                  FontSize="18"
-                                  FontWeight="SemiBold"/>
-                        <TextBlock Text="Configure device parameters and network"
-                                  FontSize="14"
-                                  Foreground="#666666"/>
-                        <Button Content="Open Settings"
-                               Background="#2196F3"
-                               Foreground="White"
-                               Padding="12,8"
-                               CornerRadius="4"
-                               HorizontalAlignment="Left"
-                               Cursor="Hand"/>
-                    </StackPanel>
-                </Border>
-
-                <!-- Card 3 -->
-                <Border Background="White"
-                       CornerRadius="8"
-                       Padding="20"
-                       BoxShadow="0 2 8 2 #20000000">
-                    <StackPanel Spacing="8">
-                        <TextBlock Text="System Status"
-                                  FontSize="18"
-                                  FontWeight="SemiBold"/>
-                        <TextBlock Text="View system diagnostics and logs"
-                                  FontSize="14"
-                                  Foreground="#666666"/>
-                        <Button Content="View Status"
-                               Background="#2196F3"
-                               Foreground="White"
-                               Padding="12,8"
-                               CornerRadius="4"
-                               HorizontalAlignment="Left"
-                               Cursor="Hand"/>
-                    </StackPanel>
-                </Border>
-            </StackPanel>
-        </StackPanel>
+        <!-- Floating Action Button (Plus Button) -->
+        <Border Grid.Row="0"
+                Width="56"
+                Height="56"
+                CornerRadius="28"
+                Background="#2196F3"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Margin="24"
+                BoxShadow="0 4 8 0 #40000000">
+            <Button Background="Transparent"
+                    BorderThickness="0"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    HorizontalContentAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    Cursor="Hand">
+                <material:MaterialIcon Kind="Plus"
+                                      Width="24"
+                                      Height="24"
+                                      Foreground="White"/>
+            </Button>
+        </Border>
     </Grid>
 </UserControl>

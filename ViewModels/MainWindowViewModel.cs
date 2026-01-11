@@ -20,6 +20,9 @@ public partial class MainWindowViewModel : ViewModelBase
     [ObservableProperty]
     private ViewModelBase? _currentView;
 
+    [ObservableProperty]
+    private string _searchText = string.Empty;
+
     public MainWindowViewModel()
     {
         _navigationService = new NavigationService();
@@ -28,6 +31,26 @@ public partial class MainWindowViewModel : ViewModelBase
             if (e.PropertyName == nameof(NavigationService.CurrentView))
             {
                 CurrentView = _navigationService.CurrentView;
+
+                // Sync SearchText with HomeViewModel if current view is HomeViewModel
+                if (CurrentView is HomeViewModel homeViewModel)
+                {
+                    homeViewModel.PropertyChanged += (s, e) =>
+                    {
+                        if (e.PropertyName == nameof(HomeViewModel.SearchText))
+                        {
+                            SearchText = homeViewModel.SearchText;
+                        }
+                    };
+
+                    this.PropertyChanged += (s, e) =>
+                    {
+                        if (e.PropertyName == nameof(SearchText) && CurrentView is HomeViewModel hvm)
+                        {
+                            hvm.SearchText = SearchText;
+                        }
+                    };
+                }
             }
         };
     }

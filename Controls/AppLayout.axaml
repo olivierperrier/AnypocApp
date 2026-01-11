@@ -6,32 +6,33 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600"
              x:Class="AnypocApp.Controls.AppLayout"
              x:DataType="controls:AppLayout"
-             x:CompileBindings="False">
+             x:Name="Root">
 
     <Grid RowDefinitions="Auto,Auto,*,Auto">
         <!-- System Bar (top status bar) -->
         <controls:SystemBar Grid.Row="0"
-                           IsWifiConnected="{Binding IsWifiConnected, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                           IsEthernetConnected="{Binding IsEthernetConnected, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                           WifiSignalStrength="{Binding WifiSignalStrength, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
+                           IsWifiConnected="{Binding #Root.IsWifiConnected}"
+                           IsEthernetConnected="{Binding #Root.IsEthernetConnected}"
+                           WifiSignalStrength="{Binding #Root.WifiSignalStrength}"/>
 
         <!-- Top Bar (navigation bar) -->
         <controls:TopBar Grid.Row="1"
                         x:Name="TopBar"
-                        Title="{Binding PageTitle, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
+                        Title="{Binding #Root.PageTitle}"
+                        CenterContent="{Binding #Root.TopBarCenterContent}"/>
 
         <!-- Main Content Area -->
         <Border Grid.Row="2" Background="White">
             <ContentControl x:Name="ContentArea"
-                          Content="{Binding PageContent, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                          Content="{Binding #Root.PageContent}"
                           HorizontalContentAlignment="Stretch"
                           VerticalContentAlignment="Stretch"/>
         </Border>
 
         <!-- Bottom Bar (info bar) -->
         <controls:BottomBar Grid.Row="3"
-                           LeftInfo="{Binding BottomLeftInfo, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                           CenterInfo="{Binding BottomCenterInfo, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                           RightInfo="{Binding BottomRightInfo, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
+                           LeftInfo="{Binding #Root.BottomLeftInfo}"
+                           CenterInfo="{Binding #Root.BottomCenterInfo}"
+                           RightInfo="{Binding #Root.BottomRightInfo}"/>
     </Grid>
 </UserControl>

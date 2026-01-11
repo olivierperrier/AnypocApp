@@ -10,10 +10,19 @@ public partial class TopBar : UserControl
     public static readonly StyledProperty<string> TitleProperty =
         AvaloniaProperty.Register<TopBar, string>(nameof(Title), defaultValue: "AnypocApp");
 
+    public static readonly StyledProperty<object?> CenterContentProperty =
+        AvaloniaProperty.Register<TopBar, object?>(nameof(CenterContent), defaultValue: null);
+
     public string Title
     {
         get => GetValue(TitleProperty);
         set => SetValue(TitleProperty, value);
+    }
+
+    public object? CenterContent
+    {
+        get => GetValue(CenterContentProperty);
+        set => SetValue(CenterContentProperty, value);
     }
 
     public event EventHandler<RoutedEventArgs>? MenuButtonClicked;

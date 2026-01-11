@@ -23,12 +23,24 @@
         <!-- Main App Screen (after login) -->
         <controls:AppLayout IsVisible="{Binding IsLoggedIn}"
                            PageContent="{Binding CurrentView}"
-                           PageTitle="Home"
+                           PageTitle="Medical Tests"
                            IsWifiConnected="True"
                            IsEthernetConnected="False"
                            WifiSignalStrength="85%"
                            BottomLeftInfo="Device: POC-001"
                            BottomCenterInfo="Ready"
-                           BottomRightInfo="v1.0.0"/>
+                           BottomRightInfo="v1.0.0">
+            <controls:AppLayout.TopBarCenterContent>
+                <TextBox Text="{Binding SearchText}"
+                         Watermark="Search tests..."
+                         BorderThickness="1"
+                         BorderBrush="White"
+                         CornerRadius="4"
+                         Padding="12,8"
+                         FontSize="14"
+                         Background="White"
+                         MinWidth="300"/>
+            </controls:AppLayout.TopBarCenterContent>
+        </controls:AppLayout>
     </Grid>
 </Window>

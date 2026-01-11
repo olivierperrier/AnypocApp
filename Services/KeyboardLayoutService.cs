@@ -58,11 +58,7 @@ public class KeyboardLayoutService
 
     private static void LoadLayout(string json)
     {
-        var options = new JsonSerializerOptions
-        {
-            PropertyNameCaseInsensitive = true
-        };
-        var layout = JsonSerializer.Deserialize<KeyboardLayout>(json, options);
+        var layout = JsonSerializer.Deserialize(json, KeyboardLayoutJsonContext.Default.KeyboardLayout);
 
         if (layout != null && !string.IsNullOrEmpty(layout.LanguageCode))
         {

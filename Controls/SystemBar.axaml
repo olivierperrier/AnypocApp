@@ -6,7 +6,7 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="40"
              x:Class="AnypocApp.Controls.SystemBar"
              x:DataType="controls:SystemBar"
-             x:CompileBindings="False">
+             x:Name="Root">
 
     <Border Background="#1C1C1E" Height="40">
         <Grid ColumnDefinitions="*,Auto" Margin="12,0">
@@ -31,19 +31,19 @@
                        VerticalAlignment="Center">
                 <!-- WiFi Indicator -->
                 <StackPanel Orientation="Horizontal" Spacing="6"
-                           IsVisible="{Binding IsWifiConnected, RelativeSource={RelativeSource AncestorType=UserControl}}">
+                           IsVisible="{Binding #Root.IsWifiConnected}">
                     <Path x:Name="WifiIcon"
                           Fill="#4CAF50"
                           Data="M12.01 21.49L23.64 7c-.45-.34-4.93-4-11.64-4C5.28 3 .81 6.66.36 7l11.63 14.49.01.01.01-.01zm-1.07-1.43L.84 8.83c.4-.31 3.74-2.83 9.17-2.83 5.42 0 8.76 2.5 9.17 2.82L8.94 20.06z"
                           Width="20" Height="20"/>
-                    <TextBlock Text="{Binding WifiSignalStrength, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                    <TextBlock Text="{Binding #Root.WifiSignalStrength}"
                               Foreground="White"
                               FontSize="12"/>
                 </StackPanel>
 
                 <!-- Ethernet Indicator -->
                 <StackPanel Orientation="Horizontal" Spacing="6"
-                           IsVisible="{Binding IsEthernetConnected, RelativeSource={RelativeSource AncestorType=UserControl}}">
+                           IsVisible="{Binding #Root.IsEthernetConnected}">
                     <Border Width="20" Height="20"
                            Background="#4CAF50"
                            CornerRadius="2">

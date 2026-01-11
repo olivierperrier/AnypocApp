@@ -1,0 +1,43 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:AnypocApp.ViewModels"
+        xmlns:controls="using:AnypocApp.Controls"
+        xmlns:components="using:AnypocApp.Components"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="500"
+        x:Class="AnypocApp.Views.MainView"
+        x:DataType="vm:MainWindowViewModel">
+
+    <Design.DataContext>
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+
+    <Grid>
+        <!-- Login Screen -->
+        <components:LoginView IsVisible="{Binding !IsLoggedIn}"/>
+
+        <!-- Main App Screen (after login) -->
+        <controls:AppLayout IsVisible="{Binding IsLoggedIn}"
+                           PageContent="{Binding CurrentView}"
+                           PageTitle="Medical Tests"
+                           IsWifiConnected="True"
+                           IsEthernetConnected="False"
+                           WifiSignalStrength="85%"
+                           BottomLeftInfo="Device: POC-001"
+                           BottomCenterInfo="Ready"
+                           BottomRightInfo="v1.0.0">
+            <controls:AppLayout.TopBarCenterContent>
+                <TextBox Text="{Binding SearchText}"
+                         Watermark="Search tests..."
+                         BorderThickness="1"
+                         BorderBrush="White"
+                         CornerRadius="4"
+                         Padding="12,8"
+                         FontSize="14"
+                         Background="White"
+                         MinWidth="300"/>
+            </controls:AppLayout.TopBarCenterContent>
+        </controls:AppLayout>
+    </Grid>
+</UserControl>
